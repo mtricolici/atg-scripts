@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# rless - colorized log viewer for ATG (like "less" but with colors)
+#
+# Author::  Marcel Tricolici  (mailto:mtricolici@tacitknowledge.com)
+#
+
+if [ "$#" != "1" ] && [ "$#" != "2" ]; then
+  echo "Usage: $0 <LOG-FILE-NAME> [-i]"
+  echo " -i - ignore DEBUG transaction lines "
+else
+  /usr/local/bin/rcat $@ |less -R
+fi
+

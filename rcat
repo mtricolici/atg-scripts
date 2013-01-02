@@ -1,0 +1,64 @@
+#! /usr/bin/env ruby
+#
+# rcat - colorized log output for ATG (do not use it directly, it's used by rless)
+#
+# Author::    Marcel Tricolici  (mailto:mtricolici@tacitknowledge.com)
+#
+
+# Define colors for different log levels
+_debug="\e[0;36m";  # blue fg
+_error="\e[1;91m";  # red bg
+_warn="\e[0;93m";   # yellow fg
+_info="\e[1;97m";   # white fg
+_stdout="\e[1;32m"; # green fg
+_end="\e[0m";       # stop colorization
+
+# show usage message if arguments not correct
+if (ARGV.length < 1) || (ARGV.length > 2)
+  exit
+end
+
+# get the log file from arguments
+log_file = ARGV[0]
+ignore_warnings = (ARGV[1] == "-i")
+
+# open a stream
+fhi = IO.popen("cat #{log_file}");
+
+color="";
+
+Kernel.trap('INT') { Kernel.exit }
+
+while (line = fhi.gets)
+
+  line = line.chop
+  ignore = false;
+
+  # colorize each line based on the log level
+  if (line.include? " DEBUG ") || (line.include? "*DEBUG*")
+    color=_debug;
+    if ignore_warnings && (line.include? "DEBUG [nucleusNamespace.atg.dynamo.transaction.TransactionManager]") then
+       ignore = true;
+    end;
+  end;
+  if (line.include? " ERROR ") || (line.include? "*ERROR*")
+    color=_error;
+  end;
+  if (line.include? " WARN ") || (line.include? "*WARN*")
+    color=_warn;
+  end;
+  if (line.include? " INFO ") || (line.include? "*INFO*")
+    color=_info;
+  end;
+  if (line.include? "[STDOUT]")
+    color=_stdout;
+  end;
+
+  if !ignore then
+    # print the colorized line
+    puts "#{color}#{line}#{_end}";
+  end
+
+end
+
+Kernel.exit
