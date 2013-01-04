@@ -3,7 +3,6 @@
 # rcat - colorized log output for ATG (do not use it directly, it's used by rless)
 #
 # Author::    Marcel Tricolici  (mailto:mtricolici@tacitknowledge.com)
-# test3
 #
 
 # Define colors for different log levels
