@@ -3,6 +3,7 @@
 # rless - colorized log viewer for ATG (like "less" but with colors)
 #
 # Author::  Marcel Tricolici  (mailto:mtricolici@tacitknowledge.com)
+# zzz
 #
 
 if [ "$#" != "1" ] && [ "$#" != "2" ]; then
