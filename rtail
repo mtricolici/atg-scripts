@@ -1,7 +1,6 @@
 #! /usr/bin/env ruby
 #
 # rtail - colorized log tailer for ATG
-#
 # Author::    Marcel Tricolici  (mailto:mtricolici@tacitknowledge.com)
 #
 
